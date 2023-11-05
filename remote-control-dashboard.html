@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remote Control Car Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="bg-black text-white relative">
+    <div class="sides-animation absolute w-full h-screen">
+      <div class="wraper">
+        <div class="circle-left"></div>
+        <div class="circle-right"></div>
+      </div>
+
+      <svg style="z-index: -1">
+        <filter id="wavy">
+          <feTurbulence
+            x="0"
+            y="0"
+            baseFrequency="0.009"
+            numOctaves="5"
+            seed="2"
+          >
+            <animate
+              attributeName="baseFrequency"
+              dur="60s"
+              values="0.02;0.05;0.07"
+              repeatCount="indefinite"
+            />
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" scale="30" />
+        </filter>
+      </svg>
+    </div>
+    <h1 class="text-3xl text-center mt-4 text-fuchsia-400 font-bold">
+      Remote Control Car Dashboard
+    </h1>
+    <div
+      class="container mx-auto mt-24 p-4 flex flex-col gap-40 justify-center items-center w-[80%] lg:flex-row"
+    >
+      <div class="speed flex flex-col w-2/4 gap-36 justify-center items-center">
+        <div
+          class="progress w-48 h-48 relative flex justify-center items-center rounded-full"
+        >
+          <span id="speedValue" class="text-fuchsia-500 blur-[1px]"></span>
+        </div>
+
+        <div
+          id="speed-control"
+          class="speed-control h-8 w-48 rounded-full shadow-lg flex items-center space-y-2 bg-fuchsia-400 relative shadow-lg active:shadow-fuchsia-500/50 transition-all duration-500"
+        >
+          <div
+            id="throttle"
+            class="handle bg-fuchsia-500 w-6 h-6 rounded-full cursor-grab hover:bg-fuchsia-700 translate-y-1 translate-x-1 absolute top-0"
+          ></div>
+        </div>
+      </div>
+
+      <div class="controls flex flex-col items-center gap-28 w-full w-2/4">
+        <div
+          class="dis-controller relative flex justify-center items-center w-48 h-48 p-8"
+        >
+          <div class="wraper absolute w-full h-full">
+            <i
+              class="fa-solid fa-angle-up absolute top-0 left-[50%] translate-x-[-50%] text-2xl text-fuchsia-300 opacity-30"
+            ></i>
+            <i
+              class="fa-solid fa-angle-right absolute right-0 top-[50%] text-2xl -translate-y-[50%] text-fuchsia-300 opacity-30"
+            ></i>
+            <i
+              class="fa-solid fa-angle-down absolute bottom-0 left-[50%] translate-x-[-50%] text-2xl text-fuchsia-300 opacity-30"
+            ></i>
+            <i
+              class="fa-solid fa-angle-left absolute left-0 top-[50%] text-2xl -translate-y-[50%] text-fuchsia-300 opacity-30"
+            ></i>
+          </div>
+          <div
+            id="joystick"
+            class="transform cursor-pointer opacity-80 active:opacity-100 hover:opacity-100 transition-all duration-300 active:drop-shadow-[0_0_50px_fuchsia]"
+          ></div>
+        </div>
+        <!-- Start/Stop Buttons -->
+        <div class="flex justify-center items-center my-4 relative">
+          <button
+            id="start-button"
+            class="border border-purple-400 text-fuchsia-500 text-white font-bold py-2 px-4 hover:rounded transition-all duration-300"
+          >
+            Start
+          </button>
+          <button
+            id="stop-button"
+            class="border border-purple-400 text-white font-bold py-2 px-4 rounded bg-fuchsia-300 shadow-lg shadow-fuchsia-500/50 transition-all duration-300 hidden"
+          >
+            Stop
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.js"
+      integrity="sha512-3BJac1xfwfaRqC518nx2AIQCA2SFw9Ei/zxPFaDQ+F3yezNe58Fjfq9NV+jFQ5kc+MeZ3B+6cxeiy/k1m3nuXQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="main.js" type="module"></script>
+  </body>
+</html>
