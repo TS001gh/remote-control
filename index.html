@@ -20,11 +20,15 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body class="bg-black text-white relative">
-    <div class="sides-animation absolute w-full h-screen">
-      <div class="wraper">
-        <div class="circle-left"></div>
-        <div class="circle-right"></div>
+  <body
+    class="bg-black text-white relative overflow-y-scroll lg:overflow-y-hidden"
+  >
+    <div class="sides-animation absolute w-full h-full lg:h-screen">
+      <div class="wraper h-screen">
+        <div
+          class="circle-left h-screen lg:-translate-x-[120%] xl:-translate-x-[100%] 2xl:-translate-x-[80%] -translate-x-[100%]"
+        ></div>
+        <div class="circle-right h-screen"></div>
       </div>
 
       <svg style="z-index: -1">
@@ -51,9 +55,11 @@
       Remote Control Car Dashboard
     </h1>
     <div
-      class="container mx-auto mt-24 p-4 flex flex-col gap-40 justify-center items-center w-[80%] lg:flex-row"
+      class="container mx-auto lg:mt-24 mt-12 p-4 flex flex-col gap-40 justify-center items-center w-[80%] lg:flex-row"
     >
-      <div class="speed flex flex-col w-2/4 gap-36 justify-center items-center">
+      <div
+        class="speed flex flex-col w-2/4 gap-16 lg:gap-36 justify-center items-center"
+      >
         <div
           class="progress w-48 h-48 relative flex justify-center items-center rounded-full"
         >
@@ -71,7 +77,9 @@
         </div>
       </div>
 
-      <div class="controls flex flex-col items-center gap-28 w-full w-2/4">
+      <div
+        class="controls flex lg:flex-col items-center gap-12 flex-col-reverse lg:gap-28 w-full w-2/4"
+      >
         <div
           class="dis-controller relative flex justify-center items-center w-48 h-48 p-8"
         >

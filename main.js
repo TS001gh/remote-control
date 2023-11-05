@@ -2,6 +2,8 @@ const carState = localStorage.getItem('carState') || 'stopped';
 const startButton = document.getElementById('start-button');
 const stopButton = document.getElementById('stop-button');
 const speedControl = document.getElementById('speed-control');
+const wrapper = document.querySelector('.progress');
+const container = document.querySelector('.container');
 
 function updateCarState(newState) {
   localStorage.setItem('carState', newState);
@@ -47,7 +49,6 @@ updateCarState(carState);
 // ////////////////////////////
 function drawMy(value) {
   const speedValue = document.getElementById('speedValue');
-  const wrapper = document.querySelector('.progress');
   const barCount = 50;
   const percent1 = (value / 100) * barCount;
 
@@ -86,13 +87,16 @@ function drawMy(value) {
 
 const throttle = document.getElementById('throttle');
 const maxSpeed = 480; // Maximum speed in km/h
-let speed = null;
+let speed = 0;
 let intervalId = null;
-let newPosition = null;
 
+// تعديل هذه الوظيفة للتعامل مع أحداث اللمس
 function handleDrag(event) {
+  // تحقق إذا كان الحدث هو حدث لمس واستخدمه إذا كان الأمر كذلك
+  const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+
   const rect = speedControl.getBoundingClientRect();
-  newPosition = event.clientX - rect.left - throttle.offsetWidth / 2;
+  let newPosition = clientX - rect.left - throttle.offsetWidth / 2;
   newPosition = Math.max(
     0,
     Math.min(newPosition, rect.width - throttle.offsetWidth)
@@ -103,49 +107,52 @@ function handleDrag(event) {
     (newPosition / (rect.width - throttle.offsetWidth)) * maxSpeed
   );
   const percentage = (speed / maxSpeed) * 100;
-  // هاي النسبة يلي بدك ياها مشان السرعة
   console.log(percentage);
+
+  // هاي مهمة بالنسبة لالك يلي هي نسبة السرعة فينك تطبعها وتشوفها عن طريق ال console.log(percentage)
   drawMy(percentage);
+
   const speedValue = document.getElementById('speedValue');
+  speedValue.textContent = `${speed}km`;
   speedValue.style.filter = 'blur(0px)';
-}
-
-function decreaseSpeedGradually() {
-  if (speed > 0) {
-    const speedDecrease = 5; // تقليل السرعة بمقدار 5 كم/ساعة
-    speed -= speedDecrease;
-    const rect = speedControl.getBoundingClientRect();
-    const throttlePosition = parseInt(throttle.style.left, 10);
-    const newPosition =
-      throttlePosition - (speedDecrease / maxSpeed) * rect.width;
-    throttle.style.left = `${Math.max(0, newPosition)}px`;
-
-    // update perecent
-    const percentage = (speed / maxSpeed) * 100;
-    drawMy(percentage - 5); // تحديث عرض السرعة
-  } else {
-    clearInterval(intervalId); // إيقاف التقليل عندما تصل السرعة إلى الصفر
-    intervalId = null;
-    throttle.style.left = `0px`;
-    const percentage = 0;
-    drawMy(percentage); // تحديث عرض السرعة
-    const speedValue = document.getElementById('speedValue');
-    speedValue.style.filter = 'blur(1px)';
-  }
 }
 
 throttle.addEventListener('mousedown', function (event) {
   event.preventDefault();
-  if (intervalId !== null) {
-    clearInterval(intervalId); // إيقاف التقليل التدريجي إذا كان نشطًا
-  }
   document.addEventListener('mousemove', handleDrag);
 });
 
 document.addEventListener('mouseup', function () {
   document.removeEventListener('mousemove', handleDrag);
-  intervalId = setInterval(decreaseSpeedGradually, 100); // بدء التقليل التدريجي
 });
 
-// Your existing drawMy function should remain unchanged
+throttle.addEventListener('touchstart', function (event) {
+  event.preventDefault();
+  document.addEventListener('touchmove', handleDrag, { passive: false });
+});
+
+document.addEventListener('touchend', function () {
+  document.removeEventListener('touchmove', handleDrag);
+});
+
 drawMy(0);
+
+let wasLandscape = window.innerWidth > window.innerHeight;
+
+window.addEventListener('resize', function () {
+  const isLandscape = window.innerWidth > window.innerHeight;
+
+  if (isLandscape) {
+    speedControl.style.scale = '0.7';
+    wrapper.style.scale = '0.7';
+    document.querySelector('.speed').style.gap = '2rem';
+    document.querySelector('.speed').style.marginTop = '-4rem';
+    document.querySelector('.controls').style.gap = '2rem';
+    document.querySelector('.controls').style.marginTop = '-4rem';
+    container.style.flexDirection = 'row';
+  } else if (wasLandscape) {
+    location.reload();
+  }
+
+  wasLandscape = isLandscape;
+});

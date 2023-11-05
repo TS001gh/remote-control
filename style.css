@@ -1,5 +1,5 @@
 :root {
-  --tlt-br-cnt: 50;
+  --tlt-br-cnt: 49;
   --i: 0;
   --primary: #c21bc4;
   --secondary: #d946ef;
@@ -13,7 +13,7 @@
 }
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .progress i {
   position: absolute;
@@ -98,7 +98,6 @@ body {
 
 .circle-right {
   position: relative;
-  height: 100dvh;
   width: 2dvw;
   filter: url(#wavy) blur(1px);
   rotate: 180deg;
@@ -107,10 +106,9 @@ body {
 
 .circle-left {
   position: relative;
-  height: 100dvh;
   width: 2dvw;
   filter: url(#wavy) blur(1px);
-  translate: -100% 0;
+  /* translate: -100% 0; */
 }
 .circle-right::after {
   content: '';
@@ -132,7 +130,7 @@ body {
   border: 2vmin solid fuchsia;
   border-radius: 50%;
   box-shadow: 0 0 20px fuchsia, inset 0 0 20px fuchsia;
-  translate: 15% 0;
+  translate: -10% 0;
 }
 
 .circle-right::before {
@@ -157,25 +155,26 @@ body {
   border-radius: 50%;
   box-shadow: 0 0 5vmin fuchsia, inset 0 0 5vmin fuchsia;
   animation: animate 1s linear infinite;
+  translate: -10% 0;
 }
 
 @keyframes animate {
   0% {
-    box-shdow: 0 0 50px #0f0, inset 0 0 50px #0f0;
+    box-shdow: 0 0 50px fuchsia, inset 0 0 50px fuchsia;
   }
   20% {
-    box-shdow: 0 0 60px #0f0, inset 0 0 60px #0f0;
+    box-shdow: 0 0 60px fuchsia, inset 0 0 60px fuchsia;
   }
   40% {
-    box-shdow: 0 0 40px #0f0, inset 0 0 40px #0f0;
+    box-shdow: 0 0 40px fuchsia, inset 0 0 40px fuchsia;
   }
   60% {
-    box-shdow: 0 0 80px #0f0, inset 0 0 80px #0f0;
+    box-shdow: 0 0 80px fuchsia, inset 0 0 80px fuchsia;
   }
   80% {
-    box-shdow: 0 0 100px #0f0, inset 0 0 100px #0f0;
+    box-shdow: 0 0 100px fuchsia, inset 0 0 100px fuchsia;
   }
   100% {
-    box-shdow: 0 0 50px #0f0, inset 0 0 50px #0f0;
+    box-shdow: 0 0 50px fuchsia, inset 0 0 50px fuchsia;
   }
 }
